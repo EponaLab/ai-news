@@ -32,6 +32,18 @@ sources:
     url: "https://www.druidai.com/blog/agentic-ai-trends-in-2026"
     type: "industry analysis"
     date: "2026-05"
+  - name: "AWS: Introducing Strands Agents, an Open Source AI Agents SDK"
+    url: "https://aws.amazon.com/blogs/opensource/introducing-strands-agents-an-open-source-ai-agents-sdk/"
+    type: "product announcement"
+    date: "2025-05-16"
+  - name: "AWS: Customize agent workflows with advanced orchestration using Strands Agents"
+    url: "https://aws.amazon.com/blogs/machine-learning/customize-agent-workflows-with-advanced-orchestration-techniques-using-strands-agents/"
+    type: "technical guide"
+    date: "2025-12-15"
+  - name: "InfoQ: AWS Launches Strands Labs for Experimental AI Agent Projects"
+    url: "https://www.infoq.com/news/2026/03/aws-strands-agents/"
+    type: "news"
+    date: "2026-03-12"
 related_research:
   - agentic-design-patterns.md
   - multi-agent-frameworks.md
@@ -613,6 +625,84 @@ Teams prototype in CrewAI, migrate to LangGraph for production when hitting comp
 - Simple agent coordination
 - Speed over control
 
+### 6. AWS Strands Agents
+
+**Paradigm:** Model-driven orchestration  
+**Owned by:** AWS (open source)  
+**Status:** Production-ready (v1.0 released April 2026)
+
+**Key features:**
+- **Model-driven approach**: Relies on model's native reasoning and tool use (vs. complex workflow orchestration)
+- **MCP integration**: First-class support for Model Context Protocol servers
+- **Multi-model support**: Amazon Bedrock, Anthropic API, Llama API, Ollama, LiteLLM
+- **Multi-agent patterns**: Workflow, graph, and swarm tools for orchestration
+- **Production-first design**: Used by Amazon Q Developer, AWS Glue, VPC Reachability Analyzer
+- **TypeScript and Python**: Full SDK support in both languages
+
+**Best for:**
+- AWS/Bedrock-integrated systems
+- Teams wanting simpler orchestration (vs. complex frameworks)
+- MCP-heavy tooling
+- Production deployment on AWS infrastructure (Lambda, Fargate, EC2)
+
+**Core concept:**
+> "Compared with frameworks that require developers to define complex workflows for their agents, Strands simplifies agent development by embracing the capabilities of state-of-the-art models to plan, chain thoughts, call tools, and reflect."  
+> — [AWS Open Source Blog (May 2025)](https://aws.amazon.com/blogs/opensource/introducing-strands-agents-an-open-source-ai-agents-sdk/)
+
+**How it works:**
+1. Define three components: model, tools, prompt
+2. Agent uses model to dynamically direct its own steps
+3. Agentic loop invokes LLM with prompt + context + tool descriptions
+4. LLM responds, plans, reflects, and/or selects tools
+5. Strands executes tools and provides results back to LLM
+6. Repeats until task complete
+
+**Architecture flexibility:**
+- **Monolith**: Agent + tools in same environment
+- **Microservices**: Agent and tools separated
+- **Return-of-control**: Client responsible for running tools
+- **API-based**: Tools invoked via API, isolated backend
+
+**Observability:**
+- OpenTelemetry (OTEL) instrumentation
+- Agent trajectories and metrics
+- Distributed tracing across components
+- Integrates with any OTEL-compatible backend
+
+**Notable tools:**
+- **Retrieve tool**: Semantic search via Bedrock Knowledge Bases; can also retrieve tools using semantic search (e.g., from 6,000+ tool library)
+- **Thinking tool**: Prompts model for deep analytical thinking and self-reflection
+- **Multi-agent tools**: Workflow, graph, swarm orchestration patterns
+
+**Production use:**
+- **Amazon Q Developer**: AI-powered software development assistant
+- **AWS Glue**: Data integration workflows
+- **VPC Reachability Analyzer**: Network diagnostics
+- Multiple internal AWS teams
+
+**Community:**
+- Apache License 2.0 (open source)
+- Partners: Accenture, Anthropic, Langfuse, mem0.ai, Meta, PwC, Ragas.io, Tavily
+- **Strands Labs**: Experimental projects for agent orchestration, robotics, agent-assisted development
+
+**When to use:**
+- AWS ecosystem preference
+- Want simpler orchestration than LangGraph
+- Heavy MCP usage
+- Production deployment on AWS
+- Model-driven approach appeals (vs. explicit workflow definition)
+
+**Limitations:**
+- Newer than LangGraph (less battle-tested)
+- AWS ecosystem gravity (though multi-provider)
+- Smaller community (growing)
+
+**References:**
+- [AWS Open Source Blog: Introducing Strands Agents](https://aws.amazon.com/blogs/opensource/introducing-strands-agents-an-open-source-ai-agents-sdk/) (May 2025)
+- [AWS: Customize agent workflows with advanced orchestration](https://aws.amazon.com/blogs/machine-learning/customize-agent-workflows-with-advanced-orchestration-techniques-using-strands-agents/) (December 2025)
+- [InfoQ: AWS Launches Strands Labs](https://www.infoq.com/news/2026/03/aws-strands-agents/) (March 2026)
+- [Strands Agents Official Site](https://strandsagents.com/)
+
 ---
 
 ## Framework Comparison (2026)
@@ -623,6 +713,7 @@ Teams prototype in CrewAI, migrate to LangGraph for production when hitting comp
 | **Microsoft Agent Framework** | Multi-pattern | Azure/enterprise | High | High | Medium |
 | **CrewAI** | Role-based | Rapid prototyping, business processes | Medium | Medium | Low-Medium |
 | **Google ADK** | Hierarchical | Google Cloud, A2A protocol | High | High | Medium |
+| **AWS Strands** | Model-driven | AWS/Bedrock, MCP-heavy, simpler orchestration | High | Medium-High | Medium |
 | **OpenAI Agents** | API-first | Quick prototypes, GPT-focused | Medium | Low-Medium | Low |
 
 **Decision matrix:**
@@ -650,6 +741,13 @@ Teams prototype in CrewAI, migrate to LangGraph for production when hitting comp
 - Need A2A protocol
 - Hierarchical patterns natural fit
 - Multi-framework orchestration
+
+**Choose AWS Strands Agents if:**
+- AWS/Bedrock ecosystem
+- Want model-driven simplicity
+- Heavy MCP server usage
+- Production deployment on AWS (Lambda, Fargate, EC2)
+- Prefer letting model direct vs. explicit workflows
 
 **Choose OpenAI Agents SDK if:**
 - Prototype/MVP stage
@@ -1212,14 +1310,26 @@ for attempt in range(max_retries):
 
 9. Google Cloud. "Agent Development Kit (ADK)." [cloud.google.com/adk](https://cloud.google.com/adk)
 
+10. AWS. (2025). "Introducing Strands Agents, an Open Source AI Agents SDK." [AWS Open Source Blog](https://aws.amazon.com/blogs/opensource/introducing-strands-agents-an-open-source-ai-agents-sdk/)
+
+11. AWS. (2025). "Customize agent workflows with advanced orchestration techniques using Strands Agents." [AWS Machine Learning Blog](https://aws.amazon.com/blogs/machine-learning/customize-agent-workflows-with-advanced-orchestration-techniques-using-strands-agents/)
+
+12. AWS. "Strands Agents Official Documentation." [strandsagents.com](https://strandsagents.com/)
+
+13. InfoQ. (2026). "AWS Launches Strands Labs for Experimental AI Agent Projects." [infoq.com/news/2026/03/aws-strands-agents](https://www.infoq.com/news/2026/03/aws-strands-agents/)
+
 ### Industry Analysis
 
-10. Druid AI. (2026). "Agentic AI trends 2026: How multiagent systems redefine enterprise operations." [druidai.com/blog/agentic-ai-trends-in-2026](https://www.druidai.com/blog/agentic-ai-trends-in-2026)
+14. Druid AI. (2026). "Agentic AI trends 2026: How multiagent systems redefine enterprise operations." [druidai.com/blog/agentic-ai-trends-in-2026](https://www.druidai.com/blog/agentic-ai-trends-in-2026)
 
-11. EITT Academy. (2026). "AI Agents 2026 — Guide from LLM to Multi-Agent Systems." [eitt.academy/knowledge-base/ai-agents-2026-guide](https://eitt.academy/knowledge-base/ai-agents-2026-guide-from-llm-to-multi-agent-systems/)
+15. EITT Academy. (2026). "AI Agents 2026 — Guide from LLM to Multi-Agent Systems." [eitt.academy/knowledge-base/ai-agents-2026-guide](https://eitt.academy/knowledge-base/ai-agents-2026-guide-from-llm-to-multi-agent-systems/)
 
 ---
 
-**Document Version:** 1.0  
+**Document Version:** 1.1  
 **Last Updated:** 2026-06-25  
+**Changelog:**
+- v1.1 (2026-06-25): Added AWS Strands Agents framework (section 6), updated comparison table and sources  
+- v1.0 (2026-06-25): Initial release  
+
 **Maintained by:** EponaLab AI News Research Team
