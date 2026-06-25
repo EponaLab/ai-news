@@ -1,0 +1,19 @@
+# Editor and IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+.temp/
+
+# Build outputs (if we add any automation later)
+dist/
+build/
