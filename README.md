@@ -9,6 +9,7 @@ ai-news/
 ├── daily/          # Daily news summaries
 ├── weekly/         # Weekly rollup summaries
 ├── yearly/         # Yearly overview and trends
+├── research/       # In-depth research on key topics
 └── README.md       # This file
 ```
 
@@ -37,11 +38,28 @@ Comprehensive yearly trends, major shifts, and retrospectives.
 
 Format: `YYYY.md`
 
+### Research (`/research/`)
+In-depth technical research on key topics cited in summaries. Each research document includes:
+- Comprehensive analysis with frontmatter metadata
+- Extensive source citations with URLs
+- Technical details and examples
+- Framework comparisons and best practices
+- Production guidance and anti-patterns
+
+**Current research:**
+- [Agentic Design Patterns](./research/agentic-design-patterns.md) - Seven core patterns for building reliable agents
+- [Agent Orchestration](./research/agent-orchestration.md) - Multi-agent coordination and frameworks
+
 ## 🔖 Quick Links
 
+### Latest Content
 - [2026 Yearly Overview](./yearly/2026.md)
 - [This Week (W26)](./weekly/2026-W26.md)
 - [Today (2026-06-25)](./daily/2026-06-25.md)
+
+### Research
+- [Agentic Design Patterns](./research/agentic-design-patterns.md)
+- [Agent Orchestration](./research/agent-orchestration.md)
 
 ## 📊 Sources
 
